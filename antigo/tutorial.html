@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucas Valério — Tutorial</title>
+<meta name="description" content="Aprenda a usar IA e automação para escalar seu negócio sem contratar mais gente.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #fafaf9;
+    --bg2: #f3f2f0;
+    --surface: #ffffff;
+    --border: #e4e2de;
+    --text: #1a1a18;
+    --muted: #706f6a;
+    --accent: #1f1f1d;
+    --accent-color: #4f46e5;
+    --accent-light: #eef2ff;
+    --accent-border: #c7d2fe;
+    --radius: 10px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .logo span {
+    color: var(--accent-color);
+  }
+  .nav-link {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-link:hover { color: var(--text); }
+
+  /* CONTAINER */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    padding: 20px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--text); }
+
+  /* TUTORIAL SECTION */
+  .tutorial-wrap {
+    padding: 28px 0 0;
+  }
+  .category-tag {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-border);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    letter-spacing: 0.01em;
+  }
+  .tutorial-title {
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .tutorial-meta {
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .tutorial-meta span { display: flex; align-items: center; gap: 5px; }
+
+  /* TUTORIAL CONTENT */
+  .tutorial-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 40px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  .tutorial-content h2 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 28px 0 12px;
+    color: var(--text);
+  }
+  .tutorial-content h2:first-child { margin-top: 0; }
+  .tutorial-content p { margin-bottom: 16px; }
+  .tutorial-content p:last-child { margin-bottom: 0; }
+  .tutorial-content ul, .tutorial-content ol {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+  .tutorial-content li { margin-bottom: 6px; }
+  .tutorial-content code {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+  }
+  .highlight-box {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent-color);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 15px;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0 36px;
+  }
+  .section-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  /* PRODUTOS */
+  .products-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .products-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .product-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.15s, transform 0.15s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .product-card:hover {
+    border-color: #a5b4fc;
+    transform: translateY(-2px);
+  }
+  .product-card.featured {
+    border-color: var(--accent-color);
+    background: linear-gradient(to bottom right, #fdfeff, var(--accent-light));
+  }
+  .product-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    width: fit-content;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .badge-service { background: #fef9c3; color: #854d0e; }
+  .badge-product { background: #dcfce7; color: #14532d; }
+  .badge-popular { background: var(--accent-light); color: var(--accent-color); }
+  .product-icon {
+    font-size: 28px;
+    line-height: 1;
+  }
+  .product-name {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .product-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+  .product-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .product-price small {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .btn {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 7px;
+    text-decoration: none;
+    transition: all 0.15s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--accent-color);
+    color: #fff;
+  }
+  .btn-primary:hover { background: #4338ca; }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--text); }
+
+  /* CTA FINAL */
+  .cta-box {
+    background: var(--text);
+    color: #fff;
+    border-radius: 14px;
+    padding: 40px 36px;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .cta-box h3 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+  }
+  .cta-box p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 24px;
+  }
+  .btn-white {
+    background: #fff;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.15s;
+  }
+  .btn-white:hover { opacity: 0.9; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .container { padding: 0 16px; }
+    .tutorial-content { padding: 20px; }
+    .cta-box { padding: 28px 20px; }
+    .header-inner { height: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">Lucas<span>.</span>IA</a>
+    <a href="#contato" class="nav-link">Falar com Lucas →</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="#">Início</a>
+    <span>›</span>
+    <a href="#">Tutoriais</a>
+    <span>›</span>
+    <span>Automação com IA</span>
+  </div>
+
+  <!-- TUTORIAL -->
+  <div class="tutorial-wrap">
+    <div class="category-tag">Automação com IA</div>
+
+    <h1 class="tutorial-title">
+      <!-- EDITE AQUI: Coloque o título do seu tutorial -->
+      Como automatizar [X] usando IA e economizar horas por semana
+    </h1>
+
+    <div class="tutorial-meta">
+      <span>⏱ 8 min de leitura</span>
+      <span>📅 Junho 2025</span>
+      <span>✅ Complemento do Reel</span>
+    </div>
+
+    <!-- AVISO DE CONTEXTO: aparece pra quem veio do Reel -->
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:14px;color:#15803d;display:flex;align-items:flex-start;gap:10px;">
+      <span style="font-size:18px;line-height:1.3">📱</span>
+      <span>Você veio do Reel do Instagram. Aqui está o passo a passo completo do que eu mostrei lá — com todos os detalhes que não cabem em 60 segundos de vídeo.</span>
+    </div>
+
+    <!-- CONTEÚDO DO TUTORIAL -->
+    <div class="tutorial-content">
+
+      <!-- EDITE AQUI: Cole o conteúdo do seu roteiro formatado -->
+
+      <h2>O problema que a maioria ignora</h2>
+      <p>
+        A maioria dos empresários ainda faz tudo na mão. Responde cliente, agenda reunião, manda proposta, faz follow-up... e no final do dia não sobrou tempo pra crescer de verdade. O negócio depende 100% deles para funcionar.
+      </p>
+      <p>
+        O problema não é falta de esforço. É falta de sistema.
+      </p>
+
+      <div class="highlight-box">
+        💡 <strong>Conceito central:</strong> Não é sobre trabalhar mais. É sobre construir uma estrutura que trabalha por você.
+      </div>
+
+      <h2>O que você vai aprender aqui</h2>
+      <p>
+        Nesse tutorial eu vou te mostrar exatamente como eu configurei [ferramenta/processo] pra [resultado específico]. Sem enrolação, sem teoria demais.
+      </p>
+      <ul>
+        <li>Passo 1: [descreva aqui]</li>
+        <li>Passo 2: [descreva aqui]</li>
+        <li>Passo 3: [descreva aqui]</li>
+      </ul>
+
+      <h2>Passo a passo</h2>
+      <p>
+        [Cole aqui o conteúdo do seu roteiro. Pode ser em texto corrido mesmo, dividido por subtítulos. Não precisa ser perfeito — o que importa é que o conteúdo seja útil.]
+      </p>
+      <p>
+        [Continue aqui com o próximo bloco do roteiro...]
+      </p>
+
+      <h2>Resultado esperado</h2>
+      <p>
+        Se você seguir esse processo, [resultado concreto que a pessoa vai ter]. É exatamente o que eu uso no dia a dia com meus clientes na LXD Digital.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- DIVISOR -->
+  <hr class="section-divider">
+  <p class="section-label">Quer ir além desse tutorial?</p>
+  <p class="products-title">Veja o que eu posso te ajudar a construir</p>
+  <p class="products-sub">Produtos e serviços pra quem quer usar IA de verdade no negócio.</p>
+
+  <!-- PRODUTOS -->
+  <div class="products-grid">
+
+    <!-- PRODUTO 1: Agentes IA -->
+    <a class="product-card featured" href="#" target="_blank">
+      <div>
+        <span class="product-badge badge-popular">Mais vendido</span>
+      </div>
+      <div class="product-icon">🤖</div>
+      <div class="product-name">Agentes de IA para o seu negócio</div>
+      <div class="product-desc">
+        Crie agentes que trabalham por você 24 horas por dia: respondem clientes, qualificam leads, mandam proposta e fazem follow-up sem você precisar fazer nada.
+      </div>
+      <div class="product-footer">
+        <div class="product-price">R$ 997 <small>/único</small></div>
+        <span class="btn btn-primary">Ver mais →</span>
+      </div>
+    </a>
+
+    <!-- PRODUTO 2: Squads IA -->
+    <a class="product-card" href="#" target="_blank">
+      <div>
+        <span class="product-badge badge-service">Serviço</span>
+      </div>
+      <div class="product-icon">👥</div>
+      <div class="product-name">Squads de IA — substitua 18 funções</div>
+      <div class="product-desc">
+        Um time completo de agentes especializados cobrindo as 18 funções que um empresário normalmente precisa de funcionário pra fazer. Do financeiro ao atendimento.
+      </div>
+      <div class="product-footer">
+        <div class="product-price">Sob consulta</div>
+        <span class="btn btn-outline">Saiba mais</span>
+      </div>
+    </a>
+
+    <!-- PRODUTO 3: Low ticket IA -->
+    <a class="product-card" href="#" target="_blank">
+      <div>
+        <span class="product-badge badge-product">Produto digital</span>
+      </div>
+      <div class="product-icon">⚡</div>
+      <div class="product-name">IA na prática — entrada acessível</div>
+      <div class="product-desc">
+        O jeito mais rápido de começar a usar IA no seu negócio. Um produto direto ao ponto, sem enrolação, pra quem quer resultado agora com investimento baixo.
+      </div>
+      <div class="product-footer">
+        <div class="product-price">R$ 47 <small>/único</small></div>
+        <span class="btn btn-primary">Quero agora →</span>
+      </div>
+    </a>
+
+    <!-- PRODUTO 4: Serviço empresas -->
+    <a class="product-card" href="#" target="_blank">
+      <div>
+        <span class="product-badge badge-service">B2B</span>
+      </div>
+      <div class="product-icon">🏢</div>
+      <div class="product-name">IA e automação para empresas</div>
+      <div class="product-desc">
+        Implemento sistemas de IA e automação dentro da sua empresa. WhatsApp, atendimento, processos internos, marketing. Resultado medido, não prometido.
+      </div>
+      <div class="product-footer">
+        <div class="product-price">Sob consulta</div>
+        <span class="btn btn-outline">Falar com Lucas</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- CTA FINAL -->
+  <div class="cta-box" id="contato">
+    <h3>Quer aplicar isso no seu negócio?</h3>
+    <p>Me manda uma mensagem e a gente vê juntos qual o próximo passo certo pra você.</p>
+    <!-- Troque o número abaixo pelo seu WhatsApp real -->
+    <a
+      href="https://wa.me/5511999999999?text=Olá%20Lucas!%20Vi%20seu%20tutorial%20e%20quero%20saber%20mais."
+      class="btn-white"
+      target="_blank"
+    >
+      Falar no WhatsApp →
+    </a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    Feito por <a href="https://instagram.com/ilucasvalerio" target="_blank">@ilucasvalerio</a>
+    &nbsp;·&nbsp;
+    <a href="https://youtube.com/@ilucasvalerio" target="_blank">YouTube</a>
+    &nbsp;·&nbsp;
+    <a href="https://lxddigital.com.br" target="_blank">LXD Digital</a>
+  </p>
+</footer>
+
+</body>
+</html>
